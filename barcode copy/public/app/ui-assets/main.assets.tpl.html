@@ -1,0 +1,12 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <div ng-controller="ListingController">
+    <div class="bs-callout bs-callout-info">
+            <form class="form" role="form" ng-submit="addItem()">
+                <new-item-input new-items='newItems' config-items='formObj.fields'>
+                    </new-item-input>
+                <button type="submit" ng-click="" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+        <div class="gridStyle" ng-grid="gridOptions"></div>
+    </div>
+</div>

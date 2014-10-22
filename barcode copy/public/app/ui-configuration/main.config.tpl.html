@@ -1,0 +1,108 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+    <div ng-controller="ConfigController">
+
+        <div class="bs-callout bs-callout-info">
+            <form class="form well" role="form" ng-submit="addConfigItem()">
+                <div class="row">
+                    <div class="col-md-4"><div class="form-group">
+                        <label for="name">Title</label>
+                        <input type="text" class="form-control" id="name" ng-model="configItem.title" placeholder="enter the name of your field">
+                    </div></div>
+                    <div class="col-md-3"><div class="form-group">
+                        <label for="type">Type</label>
+                        <select class="form-control" id="type" ng-model="configItem.type">
+                            <option value="text">Text</option>
+                            <option value="number">Number</option>
+                            <option value="radio">Radio Button</option>
+                            <option value="select">Select Box</option>
+                        </select>
+                    </div></div>
+                    <div class="col-md-4"><div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" placeholder="description" ng-model="configItem.description">
+                    </div></div>
+                    <div class="col-md-1"><div class="form-group">
+                        <label for="display">Display?</label>
+                        <div class="checkbox">
+                            <label>
+                                <input id="display" type="checkbox" value="true" ng-model="configItem.display" checked>
+                                True
+                            </label>
+                        </div>
+                    </div></div>
+
+                </div>
+                <div class="panel panel-default" ng-show="configItem.type=='radio'||configItem.type=='select'">
+                    <div class="panel-heading brand-info">
+                        <h3 class="panel-title">Values for field</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="label">Label</label><input type="text" class="form-control" ng-model="configItem.tmpVals.label" id="label" placeholder="label"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="value">Value</label><input type="text" class="form-control" ng-model="configItem.tmpVals.val" id="value" placeholder="value"></div>
+                            </div>
+                            <div class="col-md-4">
+
+                                <button id="addVal" type="button" ng-click="addConfigItemVals()" class="btn btn-default">Add Value</button></div>
+
+                        </div>
+                        {{configItem.vals}}
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Label</th>
+                                <th>Value</th>
+                                <th>Remove</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="options in configItem.vals">
+                                <td>{{$index +1}}</td>
+                                <td>{{options.label}}</td>
+                                <td>{{options.val}}</td>
+                                <td><button type="button" ng-click="removeConfigItemVals($index)" class="btn btn-default"> <span class="glyphicon glyphicon-remove"></span></button></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Add Field</button>
+
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Desc</th>
+                    <th>Type</th>
+                    <th>Display</th>
+                    <th>Values</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="field in formObj.fields">
+                    <td>{{$index +1}}</td>
+                    <td>{{field.title}}</td>
+                    <td>{{field.description}}</td>
+                    <td>{{field.type}}</td>
+                    <td>{{field.display}}</td>
+                    <td><div ng-repeat="v in field.vals">{{v.label}}</div></td>
+
+                    <td><button type="button" ng-click="removeConfigItem(field)" class="btn btn-default"> <span class="glyphicon glyphicon-remove"></span></button></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <button id="submitConfig" type="button" ng-click="submitConfig()" class="btn btn-warning btn-lg pull-right">Update Config</button>
+    </div>
+</div>
